@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans default-autowire="constructor">
+    <bean id="reRunTabController" class="nab.rerun.controller.RerunTabController"/>
+    <bean id="reRunTab" class="nab.rerun.extension.RerunTabExtension" init-method="register">
+        <constructor-arg index="0" value="Re-run"/>
+        <constructor-arg index="1" value="rerun"/>
+        <constructor-arg index="3" value="/plugins/reRunPlugin/rerun.jsp"/>
+    </bean>
+</beans>

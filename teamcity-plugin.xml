@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<teamcity-plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="urn:shemas-jetbrains-com:teamcity-plugin-v1-xml">
+  <info>
+    <name>reRunPlugin</name>
+    <display-name>Re-Run</display-name>
+    <version>@version@</version>
+    <description>Re run a previous build with the same parameters</description>
+
+    <vendor>
+      <name>NAB</name>
+      <url>http://www.nab.com.au</url>
+    </vendor>
+  </info>
+</teamcity-plugin>
