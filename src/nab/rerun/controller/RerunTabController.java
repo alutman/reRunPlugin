@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Enumeration;
 
 public class RerunTabController extends BaseFormXmlController {
 
@@ -46,9 +47,11 @@ public class RerunTabController extends BaseFormXmlController {
 
     @Override
     protected void doPost(@NotNull final HttpServletRequest request, @NotNull final HttpServletResponse response, @NotNull final Element xmlResponse) {
-        Long buildId = Long.parseLong(request.getParameter("promoid"));
+        Long buildId = Long.parseLong(request.getParameter("buildId"));
+
         try {
             myServer.findBuildInstanceById(buildId).getBuildPromotion().copy(true).addToQueue("automated");
+
             //TODO Send success or failure result
         } catch(Exception e) {
             e.printStackTrace();

@@ -1,7 +1,7 @@
 <%@include file="/include.jsp"%>
 
-<form action="/app/rerun" method="post">
-    <input type="hidden" id="promoid" name="promoid" value="${promo}">
+<form action="${pageContext.request.contextPath}/app/rerun" method="post">
+    <input type="hidden" id="buildId" name="buildId" value="${buildId}">
     <input class="btn btn_mini submitButton" type="submit" value="Re-run"/>
 </form>
 <%--TODO Display "Run started/could not start" message--%>

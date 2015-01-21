@@ -36,7 +36,7 @@ public class RerunTabExtension extends ViewBuildTab {
     protected void fillModel(@NotNull Map<String, Object> model, @NotNull HttpServletRequest request, @NotNull BuildPromotion promotion) {
         ArrayList<String> messages = new ArrayList<String>();
         ArrayList<Map.Entry<String, String>> parameters = new ArrayList<Map.Entry<String, String>>();
-        model.put("promo", promotion.getAssociatedBuildId());
+        model.put("buildId", promotion.getAssociatedBuildId());
 
         try {
             for (Map.Entry<String, String> entry : promotion.getParameters().entrySet()) {
