@@ -56,6 +56,7 @@ Spring does a bit of magic when it comes to the beans (`src/META-INF/build-serve
 * Controllers handle the server's context path behind the scene but references to that path will need to factor it in.
 Use `${pageContext.request.contextPath}` before your controller's path to accommodate for it
 (e.g `action="${pageContext.request.contextPath}/app/rerun"` where the controller path is `/app/rerun`)
+* The current user can be accessed via `SessionUser.getUser(request)` where `request` is a `HttpServletRequest`
 
 
 Links

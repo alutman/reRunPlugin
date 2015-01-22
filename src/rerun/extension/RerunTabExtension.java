@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
-package nab.rerun.extension;
+package rerun.extension;
 
 import jetbrains.buildServer.serverSide.BuildPromotion;
 import jetbrains.buildServer.serverSide.SBuildServer;
+import jetbrains.buildServer.serverSide.auth.Permission;
+import jetbrains.buildServer.users.SUser;
 import jetbrains.buildServer.web.openapi.PagePlaces;
 import jetbrains.buildServer.web.openapi.ViewBuildTab;
+import jetbrains.buildServer.web.util.SessionUser;
 import org.jetbrains.annotations.NotNull;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +42,7 @@ public class RerunTabExtension extends ViewBuildTab {
         model.put("buildId", promotion.getAssociatedBuildId());
 
         try {
+            //TODO Allow parameters to be edited and passed to the controller
             for (Map.Entry<String, String> entry : promotion.getParameters().entrySet()) {
                 parameters.add(entry);
             }
@@ -52,8 +56,8 @@ public class RerunTabExtension extends ViewBuildTab {
 
     @Override
     public boolean isAvailable(@NotNull HttpServletRequest request, @NotNull BuildPromotion promotion) {
-        //TODO Check user can actually run builds
-        return true;
+        SUser user = SessionUser.getUser(request);
+        return user.getGlobalPermissions().contains(Permission.RUN_BUILD);
     }
 
 

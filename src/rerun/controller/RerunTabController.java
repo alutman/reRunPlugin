@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-package nab.rerun.controller;
+package rerun.controller;
 
 import jetbrains.buildServer.controllers.BaseFormXmlController;
 import jetbrains.buildServer.serverSide.*;
+import jetbrains.buildServer.users.SUser;
 import jetbrains.buildServer.web.openapi.WebControllerManager;
+import jetbrains.buildServer.web.util.SessionUser;
 import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -47,22 +49,26 @@ public class RerunTabController extends BaseFormXmlController {
     @Override
     protected void doPost(@NotNull final HttpServletRequest request, @NotNull final HttpServletResponse response, @NotNull final Element xmlResponse) {
         Long buildId = Long.parseLong(request.getParameter("buildId"));
-
+        String returnUrl = request.getHeader("Referer");
         try {
             BuildPromotion buildPromotion = myServer.findBuildInstanceById(buildId).getBuildPromotion();
             SBuildType buildType = myServer.findBuildInstanceById(buildId).getBuildType();
 
             BuildCustomizerFactory factory = myServer.findSingletonService(BuildCustomizerFactory.class);
-            BuildCustomizer customizer = factory.createBuildCustomizer(buildType, null);
+
+            SUser user = SessionUser.getUser(request);
+            BuildCustomizer customizer = factory.createBuildCustomizer(buildType, user);
             customizer.setParameters(buildPromotion.getParameters());
-            customizer.createPromotion().addToQueue("re-run");
+
+            SQueuedBuild sQueuedBuild = customizer.createPromotion().addToQueue(user.getUsername());
+            returnUrl = myServer.getRootUrl() + "/viewQueued.html?itemId=" + sQueuedBuild.getItemId();
 
             //TODO Send success or failure result
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            response.sendRedirect(request.getHeader("Referer"));
+            response.sendRedirect(returnUrl);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -4,12 +4,12 @@
   <info>
     <name>reRunPlugin</name>
     <display-name>Re-Run</display-name>
-    <version>1.1</version>
+    <version>1.2</version>
     <description>Re run a previous build with the same parameters</description>
 
     <vendor>
-      <name>NAB</name>
-      <url>http://www.nab.com.au</url>
+      <name>alutman</name>
+      <url>http://github.com/alutman</url>
     </vendor>
   </info>
 </teamcity-plugin>
