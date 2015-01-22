@@ -17,7 +17,7 @@
 package nab.rerun.controller;
 
 import jetbrains.buildServer.controllers.BaseFormXmlController;
-import jetbrains.buildServer.serverSide.SBuildServer;
+import jetbrains.buildServer.serverSide.*;
 import jetbrains.buildServer.web.openapi.WebControllerManager;
 import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
@@ -27,7 +27,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Enumeration;
 
 public class RerunTabController extends BaseFormXmlController {
 
@@ -50,7 +49,13 @@ public class RerunTabController extends BaseFormXmlController {
         Long buildId = Long.parseLong(request.getParameter("buildId"));
 
         try {
-            myServer.findBuildInstanceById(buildId).getBuildPromotion().copy(true).addToQueue("automated");
+            BuildPromotion buildPromotion = myServer.findBuildInstanceById(buildId).getBuildPromotion();
+            SBuildType buildType = myServer.findBuildInstanceById(buildId).getBuildType();
+
+            BuildCustomizerFactory factory = myServer.findSingletonService(BuildCustomizerFactory.class);
+            BuildCustomizer customizer = factory.createBuildCustomizer(buildType, null);
+            customizer.setParameters(buildPromotion.getParameters());
+            customizer.createPromotion().addToQueue("re-run");
 
             //TODO Send success or failure result
         } catch(Exception e) {
