@@ -11,6 +11,7 @@ import jetbrains.buildServer.web.openapi.PagePlaces;
 import jetbrains.buildServer.web.openapi.ViewBuildTab;
 import jetbrains.buildServer.web.util.SessionUser;
 import org.jetbrains.annotations.NotNull;
+import rerun.controller.RerunTabController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -31,7 +32,6 @@ public class RerunTabExtension extends ViewBuildTab {
         model.put("buildId", promotion.getAssociatedBuildId());
 
         try {
-            //TODO Allow parameters to be edited and passed to the controller
             for (Map.Entry<String, String> entry : buildParams(promotion.getBuildType().getParameters(), promotion.getParameters()).entrySet()) {
                 parameters.add(entry);
             }

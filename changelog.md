@@ -3,6 +3,9 @@ WIP
 
 Unversioned
 -----------
+
+v1.3
+----
 * Added editable parameters
 * Parameters shown in the re-run tab match the build type params
 

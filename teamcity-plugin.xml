@@ -4,7 +4,7 @@
   <info>
     <name>reRunPlugin</name>
     <display-name>Re-Run</display-name>
-    <version>1.2</version>
+    <version>1.3</version>
     <description>Re run a previous build with the same parameters</description>
 
     <vendor>

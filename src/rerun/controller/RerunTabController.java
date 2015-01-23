@@ -23,7 +23,6 @@ import java.util.Map;
 
 public class RerunTabController extends BaseFormXmlController {
 
-
     public RerunTabController(@NotNull SBuildServer server,
                               @NotNull WebControllerManager webControllerManager) {
         super(server);
@@ -49,11 +48,6 @@ public class RerunTabController extends BaseFormXmlController {
             );
 
             SUser user = SessionUser.getUser(request);
-            Iterator<Map.Entry<String, String>> iterator = buildType.getParameters().entrySet().iterator();
-            while(iterator.hasNext()) {
-                Map.Entry<String, String> next = iterator.next();
-                System.out.println(next.getKey() + " : " + next.getValue());
-            }
 
             BuildCustomizerFactory factory = myServer.findSingletonService(BuildCustomizerFactory.class);
             BuildCustomizer customizer = factory.createBuildCustomizer(buildType, user);
