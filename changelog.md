@@ -1,3 +1,11 @@
+WIP
+---
+
+Unversioned
+-----------
+* Added editable parameters
+* Parameters shown in the re-run tab match the build type params
+
 v1.2
 ----
 * Redirect to new build page on successful queueing of the re-run
