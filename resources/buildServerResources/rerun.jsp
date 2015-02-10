@@ -16,7 +16,7 @@
                     <input type="hidden" name="paramNames" value="${parameter.getKey()}"/>
                 </td>
                 <td>
-                    <input style="width: 80%; font-family: monospace" type="text" name="paramValues" value="${parameter.getValue()}"/>
+                    <textarea style="width: 80%; max-width: 80vw; font-family: monospace" type="text" name="paramValues" value="${parameter.getValue()}">${parameter.getValue()}</textarea>
                 </td>
             </tr>
         </c:forEach>
