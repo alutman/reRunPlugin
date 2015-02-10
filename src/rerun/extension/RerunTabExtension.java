@@ -29,12 +29,12 @@ public class RerunTabExtension extends ViewBuildTab {
     @Override
     protected void fillModel(@NotNull Map<String, Object> model, @NotNull HttpServletRequest request, @NotNull BuildPromotion promotion) {
         ArrayList<String> messages = new ArrayList<String>();
-        ArrayList<Map.Entry<String, String>> parameters = new ArrayList<Map.Entry<String, String>>();
+        ArrayList<ReRunParameter> parameters = new ArrayList<ReRunParameter>();
         model.put("buildId", promotion.getAssociatedBuildId());
 
         try {
             for (Map.Entry<String, String> entry : buildParams(promotion.getBuildType().getParameters(), promotion.getParameters()).entrySet()) {
-                parameters.add(entry);
+                parameters.add(new ReRunParameter(entry.getKey(), entry.getValue()));
             }
         } catch (Exception e) {
             messages.add("Exception " + e.getClass() + " : " + e.getMessage());
@@ -53,7 +53,6 @@ public class RerunTabExtension extends ViewBuildTab {
     //Return only parameters that exist in the build type. Use re-run values over defaults if possible.
     private Map<String, String> buildParams (Map<String, String> defaultParams, Map<String, String> reRunParams){
         Map<String, String> newMap = new HashMap<String, String>(defaultParams);
-
         Iterator<Map.Entry<String, String>> iterator = reRunParams.entrySet().iterator();
         while(iterator.hasNext()) {
             Map.Entry<String, String> next = iterator.next();

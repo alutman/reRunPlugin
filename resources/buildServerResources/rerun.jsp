@@ -1,5 +1,13 @@
 <%@include file="/include.jsp" %>
-
+<script>
+    function resizeTextarea (field) {
+        field.rows = countHeight(field.value);
+    }
+    function countHeight(str) {
+//        TODO For each line, detect if wrapped
+            return (str.match(/\n/g) || []).length +1;
+    }
+</script>
 <form action="${pageContext.request.contextPath}/app/rerun" method="post">
     <input type="hidden" id="buildId" name="buildId" value="${buildId}">
     <h2>Re-run Parameters</h2>
@@ -16,7 +24,8 @@
                     <input type="hidden" name="paramNames" value="${parameter.getKey()}"/>
                 </td>
                 <td>
-                    <textarea style="width: 80%; max-width: 80vw; font-family: monospace" type="text" name="paramValues" value="${parameter.getValue()}">${parameter.getValue()}</textarea>
+
+                    <textarea onkeyup="resizeTextarea(this)" rows="${parameter.height()}" style="width: 80%; max-width: 80vw; font-family: monospace; font-size: 12px" type="text" name="paramValues" value="${parameter.getValue()}">${parameter.getValue()}</textarea>
                 </td>
             </tr>
         </c:forEach>
