@@ -11,13 +11,14 @@ import jetbrains.buildServer.web.openapi.PagePlaces;
 import jetbrains.buildServer.web.openapi.ViewBuildTab;
 import jetbrains.buildServer.web.util.SessionUser;
 import org.jetbrains.annotations.NotNull;
-import rerun.controller.RerunTabController;
+import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
 
 public class RerunTabExtension extends ViewBuildTab {
 
@@ -57,7 +58,7 @@ public class RerunTabExtension extends ViewBuildTab {
         while(iterator.hasNext()) {
             Map.Entry<String, String> next = iterator.next();
             if(newMap.containsKey(next.getKey())) {
-                newMap.put(next.getKey(), next.getValue());
+                newMap.put(HtmlUtils.htmlEscape(next.getKey()), HtmlUtils.htmlEscape(next.getValue()));
             }
         }
         return newMap;
