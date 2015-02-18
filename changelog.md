@@ -4,6 +4,11 @@ WIP
 Unversioned
 -----------
 
+v1.4
+----
+* Input area now autosizes
+* Fixed certain characters not being escaped (`"` and `\n`)
+
 v1.3
 ----
 * Added editable parameters

@@ -1,11 +1,20 @@
 <%@include file="/include.jsp" %>
 <script>
     function resizeTextarea (field) {
-        field.rows = countHeight(field.value);
+        field.rows = countHeight(field.value, field.cols);
     }
-    function countHeight(str) {
-//        TODO For each line, detect if wrapped
-            return (str.match(/\n/g) || []).length +1;
+    function countHeight(str, cols) {
+        var newLines = (str.match(/\n/g) || []).length
+        var plusOne = 1;
+        var lines = str.split("\n");
+        var wraps = 0;
+        lines.forEach(function(element) {
+            while(element.length > cols) {
+                wraps++;
+                element = element.substring(cols, element.length);
+            }
+        });
+        return newLines + plusOne + wraps;
     }
 </script>
 <form action="${pageContext.request.contextPath}/app/rerun" method="post">
@@ -24,8 +33,7 @@
                     <input type="hidden" name="paramNames" value="${parameter.getKey()}"/>
                 </td>
                 <td>
-
-                    <textarea onkeyup="resizeTextarea(this)" rows="${parameter.height()}" style="width: 80%; max-width: 80vw; font-family: monospace; font-size: 12px" type="text" name="paramValues" value="${parameter.getValue()}">${parameter.getValue()}</textarea>
+                    <textarea onkeyup="resizeTextarea(this)" rows="${parameter.height()}" cols="100" style="font-family: monospace;  resize: none; overflow: hidden; word-break: break-all" type="text" name="paramValues" value="${parameter.getValue()}">${parameter.getValue()}</textarea>
                 </td>
             </tr>
         </c:forEach>
@@ -34,7 +42,6 @@
     <br/>
     <input class="btn btn_mini submitButton" type="submit" value="Re-run"/>
 </form>
-<%--TODO Display "Run started/could not start" message--%>
 <br/>
 <c:forEach items="${messages}" var="message">
     <pre><c:out value="${message}"/></pre>

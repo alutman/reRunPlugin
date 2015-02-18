@@ -25,6 +25,18 @@ public class ReRunParameter {
     }
 
     public int height() {
-        return StringUtils.countOccurrencesOf(value, "\n")+1;
+        int newLines = StringUtils.countOccurrencesOf(value, "\n");
+        int plusOne = 1;
+
+        int wraps = 0;
+        StringTokenizer st = new StringTokenizer(value, "\n");
+        while(st.hasMoreTokens()) {
+            String next = st.nextToken();
+            while(next.length() > 100) {
+                wraps++;
+                next = next.substring(100, next.length());
+            }
+        }
+        return newLines + wraps + plusOne;
     }
 }

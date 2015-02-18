@@ -58,6 +58,12 @@ Use `${pageContext.request.contextPath}` before your controller's path to accomm
 (e.g `action="${pageContext.request.contextPath}/app/rerun"` where the controller path is `/app/rerun`)
 * The current user can be accessed via `SessionUser.getUser(request)` where `request` is a `HttpServletRequest`
 
+Todo
+----
+
+* Show a notification if a run started successfully
+* Improve resizing text area logic
+
 
 Links
 -----
