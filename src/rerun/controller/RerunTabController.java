@@ -13,6 +13,7 @@ import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,18 +44,14 @@ public class RerunTabController extends BaseFormXmlController {
         try {
             SBuildType buildType = myServer.findBuildInstanceById(buildId).getBuildType();
 
-            Map<String, String> newParams = createParameterMap(
-                    request.getParameterValues("paramNames"), request.getParameterValues("paramValues")
-            );
 
             SUser user = SessionUser.getUser(request);
-
             BuildCustomizerFactory factory = myServer.findSingletonService(BuildCustomizerFactory.class);
             BuildCustomizer customizer = factory.createBuildCustomizer(buildType, user);
-            customizer.setParameters(newParams);
+            setParameters(customizer, request.getParameterValues("paramNames"), request.getParameterValues("paramValues"));
 
             SQueuedBuild sQueuedBuild = customizer.createPromotion().addToQueue(user.getUsername());
-            returnUrl = myServer.getRootUrl() + "/viewQueued.html?itemId=" + sQueuedBuild.getItemId();
+            returnUrl = request.getContextPath() + "/viewQueued.html?itemId=" + sQueuedBuild.getItemId();
             //TODO Send success or failure result
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,6 +61,16 @@ public class RerunTabController extends BaseFormXmlController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setParameters(BuildCustomizer customizer, String[] names, String[] values) {
+        if(isValidArray(names) && isValidArray(values)) {
+            Map<String, String> newParams = createParameterMap(names, values);
+            customizer.setParameters(newParams);
+        }
+    }
+    private boolean isValidArray(Object[] arr) {
+        return arr != null && arr.length > 0;
     }
 
     private Map<String, String> createParameterMap(String[] names, String[] values) {

@@ -3,8 +3,14 @@ WIP
 
 Unversioned
 -----------
+
+v1.5
+----
 * Textarea height detection is all done in JS world now
 * Permission checking checks on a project basis rather than global
+* Redirect after run accounts for context path and url used to connect
+* Fixed rerun with no parameters failing
+* Textarea resize is done once on window load
 
 v1.4
 ----
