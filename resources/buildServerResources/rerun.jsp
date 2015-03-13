@@ -4,7 +4,7 @@
         field.rows = countHeight(field.value, field.cols);
     }
     function countHeight(str, cols) {
-        var newLines = (str.match(/\n/g) || []).length
+        var newLines = (str.match(/\n/g) || []).length;
         var plusOne = 1;
         var lines = str.split("\n");
         var wraps = 0;
@@ -33,7 +33,10 @@
                     <input type="hidden" name="paramNames" value="${parameter.getKey()}"/>
                 </td>
                 <td>
-                    <textarea onkeyup="resizeTextarea(this)" rows="${parameter.height()}" cols="100" style="font-family: monospace;  resize: none; overflow: hidden; word-break: break-all" type="text" name="paramValues" value="${parameter.getValue()}">${parameter.getValue()}</textarea>
+                    <textarea id="paramTextArea" onkeyup="resizeTextarea(this)" onload="resizeTextarea(this)" rows="1" cols="100" style="font-family: monospace;  resize: none; overflow: hidden; word-break: break-all" type="text" name="paramValues" value="${parameter.getValue()}">${parameter.getValue()}</textarea>
+                    <script type="text/javascript">
+                        resizeTextarea(paramTextArea);
+                    </script>
                 </td>
             </tr>
         </c:forEach>

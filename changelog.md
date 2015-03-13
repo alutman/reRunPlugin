@@ -3,6 +3,8 @@ WIP
 
 Unversioned
 -----------
+* Textarea height detection is all done in JS world now
+* Permission checking checks on a project basis rather than global
 
 v1.4
 ----

@@ -47,7 +47,8 @@ public class RerunTabExtension extends ViewBuildTab {
     @Override
     public boolean isAvailable(@NotNull HttpServletRequest request, @NotNull BuildPromotion promotion) {
         SUser user = SessionUser.getUser(request);
-        return user.getGlobalPermissions().contains(Permission.RUN_BUILD);
+        return user.getPermissionsGrantedForProject(promotion.getBuildType().getProjectId()).contains(Permission.RUN_BUILD);
+//        return user.getGlobalPermissions().contains(Permission.RUN_BUILD);
     }
 
     //Return only parameters that exist in the build type. Use re-run values over defaults if possible.

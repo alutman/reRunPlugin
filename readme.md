@@ -60,10 +60,7 @@ Use `${pageContext.request.contextPath}` before your controller's path to accomm
 
 Todo
 ----
-
 * Show a notification if a run started successfully
-* Improve resizing text area logic
-
 
 Links
 -----
