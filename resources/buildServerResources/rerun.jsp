@@ -18,7 +18,7 @@
         return newLines + plusOne + wraps;
     }
     window.onload = function() {
-        var paramAreaArr = document.getElementsByName("reRunParamTextArea");
+        var paramAreaArr = document.getElementsByName("paramValues");
         for(var i = 0; i < paramAreaArr.length; i++) {
             resizeTextarea(paramAreaArr[i]);
         }
@@ -41,7 +41,7 @@
                         <input type="hidden" name="paramNames" value="${parameter.getKey()}"/>
                     </td>
                     <td>
-                        <textarea name="reRunParamTextArea" onkeyup="resizeTextarea(this)" onclick="resizeTextarea(this)" rows="1" cols="100" style="font-family: monospace;  resize: none; overflow: hidden; word-break: break-all" type="text" name="paramValues" value="${parameter.getValue()}">${parameter.getValue()}</textarea>
+                        <textarea onkeyup="resizeTextarea(this)" onclick="resizeTextarea(this)" rows="1" cols="100" style="font-family: monospace;  resize: none; overflow: hidden; word-break: break-all" type="text" name="paramValues" value="${parameter.getValue()}">${parameter.getValue()}</textarea>
                     </td>
                 </tr>
             </c:forEach>

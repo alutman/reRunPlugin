@@ -4,6 +4,11 @@ WIP
 Unversioned
 -----------
 
+v1.6
+----
+* Fixed defect caused by v1.5 where rerun would simply use default values for params
+* Hid rerun tab if the build is still in queue
+
 v1.5
 ----
 * Textarea height detection is all done in JS world now

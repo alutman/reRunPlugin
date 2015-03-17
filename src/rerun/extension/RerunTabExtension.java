@@ -46,9 +46,10 @@ public class RerunTabExtension extends ViewBuildTab {
 
     @Override
     public boolean isAvailable(@NotNull HttpServletRequest request, @NotNull BuildPromotion promotion) {
+        boolean isNotInQueue = promotion.getAssociatedBuildId() != null;
         SUser user = SessionUser.getUser(request);
-        return user.getPermissionsGrantedForProject(promotion.getBuildType().getProjectId()).contains(Permission.RUN_BUILD);
-//        return user.getGlobalPermissions().contains(Permission.RUN_BUILD);
+        boolean userHasPermissions = user.getPermissionsGrantedForProject(promotion.getBuildType().getProjectId()).contains(Permission.RUN_BUILD);
+        return isNotInQueue && userHasPermissions;
     }
 
     //Return only parameters that exist in the build type. Use re-run values over defaults if possible.
